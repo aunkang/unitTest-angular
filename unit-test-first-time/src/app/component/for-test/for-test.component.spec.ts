@@ -69,12 +69,14 @@ describe('ForTestComponent', () => {
   });
 
   it('should return False from isPublicRepoGreaterThan function', fakeAsync(() => {
+    let expectedResult: boolean;
     component.isPublicRepoGreaterThan(10).then(
       (result) => {
-        expect(result).toBe(false);
+        expectedResult = result;
       }
     );
     tick();
+    expect(expectedResult).toBe(false);
   }));
 
 });
