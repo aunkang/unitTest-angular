@@ -1,4 +1,6 @@
+import { TestService } from './../../services/test.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-for-test',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForTestComponent implements OnInit {
 
-  constructor() { }
+  constructor(private testService: TestService) { }
 
   ngOnInit() {
   }
@@ -27,5 +29,17 @@ export class ForTestComponent implements OnInit {
     return (a + c) * 2;
   }
 
+  async isPublicRepoGreaterThan(val: number): Promise<boolean> {
+    let returnValue: boolean;
+
+    await this.testService.getGithubUserDetail().then((res) => {
+      if (res['public_repos'] > val) {
+        returnValue = true;
+      } else {
+        returnValue = false;
+      }
+    });
+    return returnValue;
+  }
 
 }
