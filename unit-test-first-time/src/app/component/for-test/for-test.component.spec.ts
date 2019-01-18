@@ -24,8 +24,8 @@ describe('ForTestComponent', () => {
   });
 
 
-  it('should return Failed from setSomething function', () => {
+  it('should return Fail from setSomething function', () => {
     spyOn(component, 'getRandomValue').and.returnValue(10)
-    expect('Fail').toBe(component.setSomething(20))
+    expect(component.setSomething(20)).toBe('Fail')
   })
 });
