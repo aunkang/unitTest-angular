@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ForTestComponent } from './for-test.component';
 import { HttpClientModule } from '@angular/common/http';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('ForTestComponent', () => {
   let component: ForTestComponent;
@@ -33,8 +34,6 @@ describe('ForTestComponent', () => {
 
 
   }));
-
-
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ForTestComponent);
@@ -68,5 +67,14 @@ describe('ForTestComponent', () => {
       }
     );
   });
+
+  it('should return False from isPublicRepoGreaterThan function', fakeAsync(() => {
+    component.isPublicRepoGreaterThan(10).then(
+      (result) => {
+        expect(result).toBe(false);
+      }
+    );
+    tick();
+  }));
 
 });
