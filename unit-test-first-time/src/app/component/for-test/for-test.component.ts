@@ -33,7 +33,6 @@ export class ForTestComponent implements OnInit {
     let returnValue: boolean;
 
     await this.testService.getGithubUserDetail().then((res) => {
-      console.log(res)
       if (res['public_repos'] > val) {
         returnValue = true;
       } else {

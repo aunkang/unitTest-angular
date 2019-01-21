@@ -5,6 +5,7 @@ import { ForTestComponent } from './for-test.component';
 import { HttpClientModule } from '@angular/common/http';
 import { fakeAsync, tick } from '@angular/core/testing';
 
+
 describe('ForTestComponent', () => {
   let component: ForTestComponent;
   let fixture: ComponentFixture<ForTestComponent>;
@@ -30,8 +31,7 @@ describe('ForTestComponent', () => {
       resolve(mockObject);
     })
     spyOn(TestServiceSpyObj, 'getGithubUserDetail').and.returnValue(mockPromise);
-    // TestServiceSpyObj.getGithubUserDetail.and.returnValue(mockPromise);
-
+    TestServiceSpyObj.getGithubUserDetail.and.returnValue(mockPromise);
 
   }));
 
@@ -72,7 +72,6 @@ describe('ForTestComponent', () => {
     let expectedResult: boolean;
     component.isPublicRepoGreaterThan(10).then(
       (result) => {
-        // console.log(result);
         expectedResult = result;
       }
     );
