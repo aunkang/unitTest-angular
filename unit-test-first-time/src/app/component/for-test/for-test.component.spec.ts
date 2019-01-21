@@ -9,7 +9,6 @@ describe('ForTestComponent', () => {
   let component: ForTestComponent;
   let fixture: ComponentFixture<ForTestComponent>;
 
-  const mockTestService = jasmine.createSpyObj('TestService', ['getGithubUserDetail']);
 
   const mockObject = {
     public_repos: 8,
@@ -21,7 +20,7 @@ describe('ForTestComponent', () => {
       declarations: [ForTestComponent],
       imports: [HttpClientModule],
       providers: [
-        { provide: TestService, useValue: mockTestService }
+        TestService
       ]
     })
       .compileComponents();
@@ -30,7 +29,8 @@ describe('ForTestComponent', () => {
     const mockPromise = new Promise((resolve, reject) => {
       resolve(mockObject);
     })
-    TestServiceSpyObj.getGithubUserDetail.and.returnValue(mockPromise);
+    spyOn(TestServiceSpyObj, 'getGithubUserDetail').and.returnValue(mockPromise);
+    // TestServiceSpyObj.getGithubUserDetail.and.returnValue(mockPromise);
 
 
   }));
@@ -72,6 +72,7 @@ describe('ForTestComponent', () => {
     let expectedResult: boolean;
     component.isPublicRepoGreaterThan(10).then(
       (result) => {
+        // console.log(result);
         expectedResult = result;
       }
     );
