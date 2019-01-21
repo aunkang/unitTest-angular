@@ -19,6 +19,7 @@ describe('TestService', () => {
 
   beforeEach(() => {
     service = TestBed.get(TestService);
+    spyOn(service, 'getOne').and.returnValue(0);
   });
 
   it('should be created', inject([TestService], (service: TestService) => {

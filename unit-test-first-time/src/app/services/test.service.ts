@@ -15,8 +15,14 @@ export class TestService {
   }
 
   getGithubUserDetail2(): Observable<any> {
+    const x = this.getOne();
+    console.log(x);
     return this.http.get('https://api.github.com/users/aunkang')
 
+  }
+
+  getOne() {
+    return 1;
   }
 
 
