@@ -1,8 +1,7 @@
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
-import { HttpClientModule, HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
-import { TestBed, inject, async, fakeAsync, tick } from '@angular/core/testing';
+import { HttpResponse } from '@angular/common/http';
+import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { TestService } from './test.service';
-import { headersToString } from 'selenium-webdriver/http';
 
 describe('TestService', () => {
 
@@ -19,8 +18,6 @@ describe('TestService', () => {
   beforeEach(() => {
     httpMock = TestBed.get(HttpTestingController);
     service = TestBed.get(TestService);
-    // http = httpClient;
-    // mockBackend = httpController;
   });
 
 
@@ -41,7 +38,6 @@ describe('TestService', () => {
       { login: 'Doe' }
     ];
 
-
     service.getGithubUserDetail2().subscribe((res: HttpResponse<any>) => {
       console.log(res)
     })
@@ -59,17 +55,28 @@ describe('TestService', () => {
 
   }));
 
+
+  it(`should not expect a POST https://api.github.com/users/aunkang`, async(() => {
+    const dummyData = [
+      { login: 'Aun' },
+      { login: 'kang' }
+    ];
+
+    service.getGithubUserDetail2().subscribe((res: HttpResponse<any>) => {
+      console.log(res)
+    })
+    const headers = { 'Test-Header': 'Test' };
+
+    const req = httpMock.expectOne(`https://api.github.com/users/aunkang`, 'getGithubUserDetail2');
+    expect(req.request.method).not.toBe("POST");
+    expect(req.request.headers.get('Content-Type')).toBe('JSON');
+    req.flush(dummyData, {
+      headers: headers,
+      status: 200,
+      statusText: 'OK'
+    })
+
+
+  }));
+
 })
-
-
-// it('should getGithubUserDetail2 is not null', async(() => {
-//   service.getGithubUserDetail2()
-//     .subscribe((res: Object) => {
-//       expect(res).not.toBeNull();
-//     })
-//   service.getGithubUserDetail()
-//     .then((res: Object) => {
-//       expect(res).not.toBeNull();
-//     })
-// }));
-// });

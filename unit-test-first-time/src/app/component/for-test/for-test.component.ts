@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class ForTestComponent implements OnInit {
 
   constructor(private testService: TestService) { }
+  buttonDisable = false;
 
   ngOnInit() {
   }
@@ -40,6 +41,11 @@ export class ForTestComponent implements OnInit {
       }
     });
     return returnValue;
+  }
+
+  checkBeforSubmit() {
+    this.buttonDisable = true;
+    return this.buttonDisable;
   }
 
 }

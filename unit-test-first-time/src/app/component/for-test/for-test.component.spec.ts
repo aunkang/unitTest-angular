@@ -4,7 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ForTestComponent } from './for-test.component';
 import { HttpClientModule } from '@angular/common/http';
 import { fakeAsync, tick } from '@angular/core/testing';
-
+import { By } from '@angular/platform-browser/';
 
 describe('ForTestComponent', () => {
   let component: ForTestComponent;
@@ -78,5 +78,20 @@ describe('ForTestComponent', () => {
     tick();
     expect(expectedResult).toBe(false);
   }));
+
+  it('should return true from checkBeforSubmit function', () => {
+    const realValue = component.checkBeforSubmit();
+    expect(realValue).toBe(true);
+  });
+
+  it('should disble submit button after call checkBeforSubmit function', () => {
+    component.checkBeforSubmit();
+
+    fixture.detectChanges();
+
+    const button = fixture.debugElement.query(By.css('button.submit'))
+    expect(button.properties.disabled).toBe(true);
+
+  });
 
 });
