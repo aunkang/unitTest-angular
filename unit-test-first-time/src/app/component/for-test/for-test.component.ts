@@ -43,6 +43,10 @@ export class ForTestComponent implements OnInit {
     return returnValue;
   }
 
+  getObservable() {
+    return this.testService.getGithubUserDetail2();
+  }
+
   checkBeforSubmit() {
     this.buttonDisable = true;
     return this.buttonDisable;

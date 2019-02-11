@@ -30,9 +30,14 @@ describe('ForTestComponent', () => {
     const mockPromise = new Promise((resolve, reject) => {
       resolve(mockObject);
     })
+
+    /* mock promise data */
     spyOn(TestServiceSpyObj, 'getGithubUserDetail').and.returnValue(mockPromise);
     TestServiceSpyObj.getGithubUserDetail.and.returnValue(mockPromise);
 
+    /* mock observable data as normal data */
+    spyOn(TestServiceSpyObj, 'getGithubUserDetail2').and.returnValue({ name: 'aun' });
+    TestServiceSpyObj.getGithubUserDetail2.and.returnValue({ name: 'aun' });
   }));
 
   beforeEach(() => {
@@ -50,6 +55,12 @@ describe('ForTestComponent', () => {
     spyOn(component, 'getRandomValue').and.returnValue(10)
     expect(component.setSomething(20)).toBe('Fail')
   })
+
+  it('should return name as aun from getObservable function', () => {
+    const expectedResult = { name: 'aun2' };
+    expect(component.getObservable()).toEqual(expectedResult);
+  }
+  )
 
   it('should return True from isPublicRepoGreaterThan function', (async () => {
     await component.isPublicRepoGreaterThan(1).then(
